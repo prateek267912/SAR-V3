@@ -659,7 +659,7 @@ with col2_up:
 # Creating header
     st.markdown("""
     <style>
-        .stSubheader subheader {
+        .stSubheader {
             font-size: 5px;
         }
     </style>
