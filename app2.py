@@ -660,7 +660,7 @@ with col2_up:
     st.markdown("""
     <style>
         .stSubheader header {
-            font-size: 20px;
+            font-size: 10px;
         }
     </style>
 """, unsafe_allow_html=True)
