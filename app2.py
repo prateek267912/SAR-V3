@@ -657,6 +657,14 @@ with col2_up:
        
 
 # Creating header
+    st.markdown("""
+    <style>
+        .stSubheader header {
+            font-size: 20px;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
     col1,col2 = st.columns(2)
     with col1:
         st.subheader('Pre-Set Questionnaire')
