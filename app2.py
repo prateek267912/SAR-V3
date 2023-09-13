@@ -893,7 +893,8 @@ with col2_up:
 
 
     # Text Input
-    st.markdown("##### Ask Additional Questions")
+    st.markdown("""<span style="font-size: 20px; font-weight: bold  ">Ask Additional Questions</span>""", unsafe_allow_html=True)
+    # st.markdown("##### Ask Additional Questions")
     query = st.text_input(':blue[Please ask below the additional case questions.]',disabled=st.session_state.disabled)
     text_dict = {}
     @st.cache_data
