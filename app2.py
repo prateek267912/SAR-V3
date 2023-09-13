@@ -465,7 +465,7 @@ st.markdown("---")
 
 st.markdown("""
 <style>
-input[tabs]{
+.tabs{
 font-weight: bold;
 font-size:120%;
 color: black;
