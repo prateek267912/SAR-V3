@@ -657,17 +657,10 @@ with col2_up:
        
 
 # Creating header
-    st.markdown("""
-    <style>
-        .stSubheader {
-            font-size: 5px;
-        }
-    </style>
-    """, unsafe_allow_html=True)
 
     col1,col2 = st.columns(2)
     with col1:
-        st.markdown("#### Pre-Set Questionnaire")
+        st.markdown("##### Pre-Set Questionnaire")
         # Create a Pandas DataFrame with your data
 
         data = {'Questions': [" What is the victim's name?","What is the suspect's name?",' List the merchant name',' How was the bank notified?',' When was the bank notified?',' What is the fraud type?',' When did the fraud occur?',' Was the disputed amount greater than 5000 USD?',' What type of cards are involved?',' Was the police report filed?']}
@@ -900,7 +893,7 @@ with col2_up:
 
 
     # Text Input
-    st.subheader("Ask Additional Questions")
+    st.markdown("##### Ask Additional Questions")
     query = st.text_input(':blue[Please ask below the additional case questions.]',disabled=st.session_state.disabled)
     text_dict = {}
     @st.cache_data
