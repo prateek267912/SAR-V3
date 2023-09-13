@@ -466,8 +466,8 @@ st.markdown("---")
 st.markdown("""
 <style>
     [data-testid=stTabs] {
-    font-weight: bold;
-    font-size:120%;
+    font-style: bold;
+    font-size:20px;
     color: black;
     }
 </style>
