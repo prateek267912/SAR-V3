@@ -663,7 +663,7 @@ with col2_up:
             font-size: 5px;
         }
     </style>
-""", unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
 
     col1,col2 = st.columns(2)
     with col1:
