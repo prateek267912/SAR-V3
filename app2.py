@@ -468,7 +468,6 @@ st.markdown("""
     [data-testid=stTabs] {
     font-style: bold;
     font-size:20px;
-    color: black;
     }
 </style>
 """, unsafe_allow_html=True)
