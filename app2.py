@@ -463,6 +463,16 @@ if selected_option == "SAR-2023-24680":
 
 st.markdown("---")
 
+st.markdown("""
+<style>
+input[tabs]{
+font-weight: bold;
+font-size:120%;
+color: black;
+}
+</style>
+""", unsafe_allow_html=True)
+
 col1_up, col2_up, col3_up, col4_up, col5_up = st.tabs(["Data", "Generate Insights","Summarization","Download Report", "Make a Decision"])
 
 with col1_up:
