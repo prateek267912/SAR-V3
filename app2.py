@@ -27,7 +27,6 @@ from io import StringIO
 from io import BytesIO
 from usellm import Message, Options, UseLLM
 from huggingface_hub import login
-from creds import api_key
 #from playsound import playsound
 #from langchain.text_splitter import CharacterTextSplitter
 #from langchain.embeddings.openai import OpenAIEmbeddings
@@ -41,12 +40,12 @@ from creds import api_key
 #import sounddevice as sd
 #from scipy.io.wavfile import write
 
-# Setting Env
-# if st.secrets["OPENAI_API_KEY"] is not None:
-#     os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
-# else:
-#     os.environ["OPENAI_API_KEY"] = os.environ.get("OPENAI_API_KEY")
-os.environ["OPENAI_API_KEY"] = api_key
+#Setting Env
+if st.secrets["OPENAI_API_KEY"] is not None:
+    os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
+else:
+    os.environ["OPENAI_API_KEY"] = os.environ.get("OPENAI_API_KEY")
+
 @st.cache_data
 def show_pdf(file_path):
     with open(file_path,"rb") as f:
