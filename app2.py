@@ -465,11 +465,11 @@ st.markdown("---")
 
 st.markdown("""
 <style>
-.tabs{
-font-weight: bold;
-font-size:120%;
-color: black;
-}
+    [data-testid=stTabs] {
+    font-weight: bold;
+    font-size:120%;
+    color: black;
+    }
 </style>
 """, unsafe_allow_html=True)
 
