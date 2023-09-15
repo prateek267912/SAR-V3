@@ -1,4 +1,4 @@
-api_key ="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"
+api_key ="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"
 
 hugging_face_key="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"
 
