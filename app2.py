@@ -27,6 +27,7 @@ from io import StringIO
 from io import BytesIO
 from usellm import Message, Options, UseLLM
 from huggingface_hub import login
+from creds import hugging_face_key
 #from playsound import playsound
 #from langchain.text_splitter import CharacterTextSplitter
 #from langchain.embeddings.openai import OpenAIEmbeddings
@@ -463,14 +464,70 @@ if selected_option == "SAR-2023-24680":
 
 st.markdown("---")
 
+####### This markdown is to manage app style
 st.markdown("""
+
 <style>
-    .stTabs] {
-    font weight: bold;
-    font size:20px;
+
+.st-d5 {
+    line-height: 1;
+}
+
+
+.css-1upf7v9 { 
+    gap: 0.5rem;
+}
+
+.css-1balh2r{
+    gap: 0;
+}
+
+.css-1544g2n {
+    padding: 0;
+    padding-top: 2rem;
+    padding-right: 1rem;
+    padding-bottom: 1.5rem;
+    padding-left: 1rem;
+}
+
+.css-1q2g7hi {
+    top: 2px;
+    min-width: 350px;
+    max-width: 600px;
     }
+
+.st-ah {
+    line-height: 1;
+}
+
+.st-af {
+    font-size: 1.5rem;
+}
+
+.css-1a65djw {
+    gap: 0;
+    }
+
+.css-1y4p8pa {
+    width: 100%;
+    padding: 3rem 1rem 10rem;
+    padding-top: 3rem;
+    padding-bottom: 10rem;
+    max-width: 60rem;
+}
+
+.css-xujc5b p{
+   font-size: 25px;
+}
+
+.css-jzprzu {
+    height: 0.5rem;
+    min-height: 0.2rem;
+    }
+
 </style>
 """, unsafe_allow_html=True)
+
 
 col1_up, col2_up, col3_up, col4_up, col5_up = st.tabs(["Data", "Generate Insights","Summarization","Download Report", "Make a Decision"])
 
