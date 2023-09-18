@@ -104,8 +104,8 @@ def usellm(prompt):
 # login(token=st.secrets["HUGGINGFACEHUB_API_TOKEN"])
 # os.environ["HUGGINGFACEHUB_API_TOKEN"] = st.secrets["HUGGINGFACEHUB_API_TOKEN"]
 
-login(token="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")
-os.environ["HUGGINGFACEHUB_API_TOKEN"]="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"
+login(token=hugging_face_key)
+os.environ["HUGGINGFACEHUB_API_TOKEN"]=hugging_face_key
 
 llama_13b = HuggingFaceHub(
             repo_id="meta-llama/Llama-2-13b-chat-hf",
