@@ -1,5 +1,6 @@
 #-*- coding: utf-8 -*-
 import random,os,json,io,re,zipfile,tempfile
+import ssl
 import pandas as pd
 import streamlit as st
 import streamlit_toggle as tog
@@ -27,13 +28,18 @@ from io import StringIO
 from io import BytesIO
 from usellm import Message, Options, UseLLM
 from huggingface_hub import login
+# import cv2
+# import pdfplumber
+# import pytesseract
+# from pdf2image import convert_from_path
 from creds import hugging_face_key
+
 #from playsound import playsound
 #from langchain.text_splitter import CharacterTextSplitter
 #from langchain.embeddings.openai import OpenAIEmbeddings
 #from langchain.chains.summarize import load_summarize_chain
 #import os
-#import pyaudio
+#import pyaudiogi
 #import wave
 #from langchain.document_loaders import UnstructuredPDFLoader
 #import streamlit.components.v1 as components
@@ -41,11 +47,13 @@ from creds import hugging_face_key
 #import sounddevice as sd
 #from scipy.io.wavfile import write
 
-#Setting Env
+# Setting Env
 if st.secrets["OPENAI_API_KEY"] is not None:
     os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
 else:
     os.environ["OPENAI_API_KEY"] = os.environ.get("OPENAI_API_KEY")
+
+# os.environ["OPENAI_API_KEY"] = api_key
 
 @st.cache_data
 def show_pdf(file_path):
@@ -213,6 +221,18 @@ def is_searchable_pdf(file_path):
                 return True
 
     return False
+
+
+
+def extract_text_from_pdf(file_path):
+    with pdfplumber.open(file_path) as pdf:
+        all_text = []
+        for page in pdf.pages:
+            text = page.extract_text()
+            all_text.append(text)
+    return "\n".join(all_text)
+
+
 
 
 # Function to add checkboxes to the DataFrame
@@ -445,24 +465,25 @@ if selected_option == "SAR-2023-24680":
     col1,col2 = st.columns(2)
     # Row 1
     with col1:
-        st.markdown("**Case number&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:** SAR-2023-24680")
-        st.markdown("**Customer name  :** John Brown")
+        st.markdown("##### **Case number&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:** SAR-2023-24680")
+        st.markdown("##### **Customer name  :** John Brown")
 
 
     with col2:
-        st.markdown("**Case open date&nbsp;&nbsp;&nbsp;&nbsp;:** Feb 02, 2021")
-        st.markdown("**Case type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:** Fraud transaction")
+        st.markdown("##### **Case open date&nbsp;&nbsp;&nbsp;&nbsp;:** Feb 02, 2021")
+        st.markdown("##### **Case type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:** Fraud transaction")
 
 
     # Row 2
     with col1:
-        st.markdown("**Customer ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:** 9659754")
+        st.markdown("##### **Customer ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:** 9659754")
 
 
     with col2:
-        st.markdown("**Case Status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:** Open")
+        st.markdown("##### **Case Status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:** Open")
 
 st.markdown("---")
+
 
 ####### This markdown is to manage app style
 st.markdown("""
@@ -528,7 +549,6 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-
 col1_up, col2_up, col3_up, col4_up, col5_up = st.tabs(["Data", "Generate Insights","Summarization","Download Report", "Make a Decision"])
 
 with col1_up:
@@ -550,7 +570,7 @@ with col1_up:
         def set_clicked():
             st.session_state.clicked = True
             st.session_state.disabled = True
-        
+        st.write("") #for the gap
         st.button('Fetch Evidence', on_click=set_clicked)
 
         if st.session_state.clicked:
@@ -635,6 +655,7 @@ with col1_up:
     tmp_dir_ = tempfile.mkdtemp()
     temp_file_path= []
 
+
     for uploaded_file in pdf_files:
         file_ext = tuple("pdf")
         if uploaded_file.name.endswith(file_ext):
@@ -654,6 +675,90 @@ with col1_up:
             temp_file_path.append(file_pth) 
         else:
             pass
+
+
+    
+#     file_pth = []
+#     for uploaded_file in pdf_files:
+#         file_ext = tuple("pdf")
+#         if uploaded_file.name.endswith(file_ext):
+#             file_pth_= os.path.join(tmp_dir_, uploaded_file.name)
+#             with open(file_pth_, "wb") as file_opn:
+#                 file_opn.write(uploaded_file.getbuffer())
+#                 file_pth.append(file_pth_)
+#         else:
+#             pass
+        
+
+
+# #     for fetched_pdf in fetched_files:
+# #         file_ext = tuple("pdf")
+# #         if fetched_pdf.endswith(file_ext):
+# #             file_pth = os.path.join('data/', fetched_pdf)
+# #             # st.write(file_pth)
+# #             temp_file_path.append(file_pth) 
+# #         else:
+# #             pass
+        
+        
+#     # # Pytesseract code
+#     # for uploaded_file in pdf_files:
+#     #     file_ext = tuple("pdf")
+#     #     if uploaded_file.name.endswith(file_ext):
+#     #         if is_searchable_pdf(uploaded_file)==False:
+#     #             st.write(f"File is not searchable:{uploaded_file.name}")
+#     #             with st.spinner('ocr initiated...'):
+#     #                 text = convert_scanned_pdf_to_searchable_pdf(uploaded_file)
+#     #                 file_pth = os.path.join(tmp_dir_, text)
+#     #                 with open(file_pth, "wb") as file_opn:
+#     #                     file_opn.write(uploaded_file.getbuffer())
+#     #                     temp_file_path.append(file_pth)
+#     #         else:
+#     #             file_pth = os.path.join(tmp_dir_, uploaded_file.name)
+#     #             with open(file_pth, "wb") as file_opn:
+#     #                 file_opn.write(uploaded_file.getbuffer())
+#     #                 temp_file_path.append(file_pth)
+#     #     else:
+#     #         pass
+    
+    
+#     # # Pytesseract code
+#     for file in file_pth:
+#         if is_searchable_pdf(file)==False:
+#             # st.write("File is not searchable")
+#             with st.spinner('ocr initiated...'):
+#                 text = convert_scanned_pdf_to_searchable_pdf(file)
+#                 st.write(text)
+#     #         file_pth = os.path.join(tmp_dir_, text)
+#     #         with open(file_pth, "wb") as file_opn:
+#     #             file_opn.write(uploaded_file.getbuffer())
+#     #             temp_file_path.append(file_pth)
+#     #     else:
+#     #         file_pth = os.path.join(tmp_dir_, uploaded_file.name)
+#     #         with open(file_pth, "wb") as file_opn:
+#     #         file_opn.write(uploaded_file.getbuffer())
+#     #         temp_file_path.append(file_pth)
+#     # else:
+#     #     pass
+
+
+#     for fetched_pdf in fetched_files:
+#         file_ext = tuple("pdf")
+#         if fetched_pdf.endswith(file_ext):
+#             selected_file_path = os.path.join(directoty_path, fetched_pdf)
+#             if is_searchable_pdf(selected_file_path)==False:
+#                 st.write(f"File is not searchable:{fetched_pdf}")
+#                 with st.spinner('ocr initiated...'):
+#                     text = convert_scanned_pdf_to_searchable_pdf(selected_file_path)
+#                     file_pth = os.path.join(tmp_dir_, text)
+#                     temp_file_path.append(file_pth)
+#             else:
+#                 file_pth = os.path.join(directoty_path, fetched_pdf)
+#                 # st.write(file_pth)
+#                 temp_file_path.append(file_pth)
+#         else:
+#             pass
+    
 
     #combining files in fetch evidence and upload evidence
     pdf_files_ = []
@@ -714,12 +819,11 @@ with col2_up:
        
 
 # Creating header
-
     col1,col2 = st.columns(2)
     with col1:
-        st.markdown("""<span style="font-size: 20px; ">Pre-Set Questionnaire</span>""", unsafe_allow_html=True)
+        st.markdown("""<span style="font-size: 24px; ">Pre-Set Questionnaire</span>""", unsafe_allow_html=True)
+        # st.subheader('Pre-Set Questionnaire')
         # Create a Pandas DataFrame with your data
-
         data = {'Questions': [" What is the victim's name?","What is the suspect's name?",' List the merchant name',' How was the bank notified?',' When was the bank notified?',' What is the fraud type?',' When did the fraud occur?',' Was the disputed amount greater than 5000 USD?',' What type of cards are involved?',' Was the police report filed?']}
         df_fixed = pd.DataFrame(data)
         df_fixed.index = df_fixed.index +1
@@ -950,8 +1054,9 @@ with col2_up:
 
 
     # Text Input
-    st.markdown("""<span style="font-size: 20px; ">Ask Additional Questions</span>""", unsafe_allow_html=True)
-    query = st.text_input(':blue[Please ask below the additional case questions.]',disabled=st.session_state.disabled)
+    st.markdown("""<span style="font-size: 24px; ">Ask Additional Questions</span>""", unsafe_allow_html=True)
+    # st.subheader("Ask Additional Questions")
+    query = st.text_input(':blue',disabled=st.session_state.disabled)
     text_dict = {}
     @st.cache_data
     def LLM_Response():
@@ -1197,7 +1302,8 @@ with col2_up:
 
 with col3_up:
     with st.spinner('Summarization ...'):
-        st.markdown("""<span style="font-size: 15px; ">Summarize key findings of the case</span>""", unsafe_allow_html=True)
+        st.markdown("""<span style="font-size: 24px; ">Summarize key findings of the case.</span>""", unsafe_allow_html=True)
+        st.write()
         if st.button("Summarize",disabled=st.session_state.disabled):
             if st.session_state.llm == "Open-AI":
                 st.session_state.disabled=False
@@ -1439,7 +1545,8 @@ with col_d2:
 
     with col5_up:   
         # Adding Radio button
-        st.header("Make Decision")
+        st.markdown("""<span style="font-size: 24px; ">Make Decision</span>""", unsafe_allow_html=True)
+        # st.header("Make Decision")
         st.markdown(
                 """ <style>
                         div[role="radiogroup"] >  :first-child{
@@ -1449,8 +1556,9 @@ with col_d2:
                     """,
                 unsafe_allow_html=True
             )
-        st.markdown("##### Is SAR filing required?")
-        selected_rad = st.radio(":blue[Please select your choice]", ["opt1","Yes", "No", "Refer for review"], horizontal=True,disabled=st.session_state.disabled)
+        st.markdown("""<span style="font-size: 24px; ">Is SAR filing required?</span>""", unsafe_allow_html=True)
+        # st.markdown("##### Is SAR filing required?")
+        selected_rad = st.radio(":blue", ["opt1","Yes", "No", "Refer for review"], horizontal=True,disabled=st.session_state.disabled)
         if selected_rad == "Refer for review":
             email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
             email_id = st.text_input("Enter your email ID")
@@ -1458,7 +1566,7 @@ with col_d2:
                 st.error("Please enter a valid email ID")
         if st.button("Submit"):
             if selected_rad in ("str_opt1"):
-                st.write("")
+                st.write("") 
             elif selected_rad in ("Yes"):
                 st.warning("Thanks for your review, your response has been submitted")
             elif selected_rad in ("No"):
