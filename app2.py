@@ -789,12 +789,7 @@ with col2_up:
                         where the dictionary key would carry the questions and its value would have a descriptive answer to the questions asked): "
                         
                     response = usellm(prompts)
-                    
-                    if is_json(response):
-                        st.write("It is json")
-                    else:
-                        st.write("Not json")
-                        
+                    st.write(type(response))
                     resp_dict_obj = json.loads(response)
                     res_df_gpt = pd.DataFrame(resp_dict_obj.items(), columns=['Question','Answer'])
                     # st.table(res_df_gpt)
