@@ -789,10 +789,17 @@ with col2_up:
                         where the dictionary key would carry the questions and its value would have a descriptive answer to the questions asked): "
                         
                     response = usellm(prompts)
-                    st.write(type(response))
-                    resp_dict_obj = json.loads(response)
-                    res_df_gpt = pd.DataFrame(resp_dict_obj.items(), columns=['Question','Answer'])
-                    # st.table(res_df_gpt)
+
+                    try:
+
+                        resp_dict_obj = json.loads(response)
+                        res_df_gpt = pd.DataFrame(resp_dict_obj.items(), columns=['Question','Answer'])
+                    
+                    except:
+                        e = Exception("")
+                        st.exception(e)
+                    
+                    
 
                     # try:
                         # res_df_gpt.Question = res_df_gpt.Question.apply(lambda x: x.split(".")[1])
@@ -811,7 +818,6 @@ with col2_up:
                         res_df_gpt.reset_index(drop=True, inplace=True)
                         index_ = pd.Series([1,2,3,4,5,6,7,8,9,10])
                         res_df_gpt = res_df_gpt.set_index([index_])
-                        # st.write(res_df_gpt)
                     except IndexError: 
                         pass
                     st.table(res_df_gpt)
@@ -954,9 +960,8 @@ with col2_up:
 
 
     # Text Input
-    st.markdown("""<span style="font-size: 24px; ">Ask Additional Questions</span>""", unsafe_allow_html=True)
-    # st.subheader("Ask Additional Questions")
-    query = st.text_input(':blue',disabled=st.session_state.disabled)
+    # st.markdown("""<span style="font-size: 24px; ">Ask Additional Questions</span>""", unsafe_allow_html=True)
+    query = st.text_input(':black[Ask Additional Questions]',disabled=st.session_state.disabled)
     text_dict = {}
     @st.cache_data
     def LLM_Response():
@@ -1450,7 +1455,7 @@ with col_d2:
     with col5_up:   
         # Adding Radio button
         st.markdown("""<span style="font-size: 24px; ">Make Decision</span>""", unsafe_allow_html=True)
-        # st.header("Make Decision")
+       
         st.markdown(
                 """ <style>
                         div[role="radiogroup"] >  :first-child{
@@ -1460,9 +1465,9 @@ with col_d2:
                     """,
                 unsafe_allow_html=True
             )
-        st.markdown("""<span style="font-size: 24px; ">Is SAR filing required?</span>""", unsafe_allow_html=True)
-        # st.markdown("##### Is SAR filing required?")
-        selected_rad = st.radio(":blue", ["opt1","Yes", "No", "Refer for review"], horizontal=True,disabled=st.session_state.disabled)
+        # st.markdown("""<span style="font-size: 24px; ">Is SAR filing required?</span>""", unsafe_allow_html=True)
+       
+        selected_rad = st.radio(":blue[Is SAR filing required?]", ["opt1","Yes", "No", "Refer for review"], horizontal=True,disabled=st.session_state.disabled)
         if selected_rad == "Refer for review":
             email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
             email_id = st.text_input("Enter your email ID")
