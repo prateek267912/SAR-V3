@@ -841,7 +841,7 @@ with col2_up:
 
                     query = "What is the suspect's name?"
                     context_1 = docsearch.similarity_search(query, k=5)
-                    prompt_1 =  f'''You are a professional fraud analyst. You need to check the document and compare if any name discrepencies are present that points towards the suspect who used the card without the consent of the cardholder.
+                    prompt_1 =  f'''You need to check the document and compare if any name discrepencies are present that points towards the suspect who used the card without the consent of the cardholder.
                                 Reply the name of the person who is the suspect.\n\n\
                                 Context: {context_1}\n\
                                 Response: (Give me a concise response in one sentence.Do not add any Explanation,Note.)'''
@@ -852,7 +852,7 @@ with col2_up:
                     
                     query = "list the merchant name"
                     context_1 = docsearch.similarity_search(query, k=5)
-                    prompt_1 = f'''Perform Name Enitity Recognition to identify Merchant as accurately as possible, given the context. A merchant is a type of business or organization that accepts payments from the customer account. Give a relevant and short response.\n\n\
+                    prompt_1 = f'''Perform Name Enitity Recognition to identify Merchant as accurately as possible from the provided information.A merchant is a type of business or organization that accepts payments from the customer account. Give a relevant and short response.\n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
                                 Response: (Give me a concise response. Do not add any extra Explanation,Note.)'''
