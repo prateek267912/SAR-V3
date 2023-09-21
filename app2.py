@@ -841,8 +841,8 @@ with col2_up:
 
                     query = "What is the suspect's name?"
                     context_1 = docsearch.similarity_search(query, k=5)
-                    prompt_1 =  f'''You need to check the document and compare if any name discrepencies are present that points towards the suspect who used the card without the consent of the cardholder.
-                                Reply the name of the person who is the suspect.\n\n\
+                    prompt_1 =  f'''You are a professional fraud analyst and should take the provided information as accurate.You need to check the document and compare if any name discrepencies are present that points towards the suspect who used the card without the consent of the cardholder.
+                                Reply the name of the person who is the suspect. \n\n\
                                 Context: {context_1}\n\
                                 Response: (Give me a concise response in one sentence.Do not add any Explanation,Note.)'''
                     response = llama_llm(llama_13b,prompt_1)
@@ -852,7 +852,7 @@ with col2_up:
                     
                     query = "list the merchant name"
                     context_1 = docsearch.similarity_search(query, k=5)
-                    prompt_1 = f'''Perform Name Enitity Recognition to identify Merchant as accurately as possible from the provided information.A merchant is a type of business or organization that accepts payments from the customer account. Give a relevant and short response.\n\n\
+                    prompt_1 = f'''You are a professional fraud analyst and should take the provided information as accurate.Perform Name Enitity Recognition to identify Merchant as accurately as possible from the provided information.A merchant is a type of business or organization that accepts payments from the customer account. Give a relevant and short response.\n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
                                 Response: (Give me a concise response. Do not add any extra Explanation,Note.)'''
@@ -905,7 +905,7 @@ with col2_up:
 
                     query = "Was the disputed amount greater than 5000 usd?"
                     context_1 = docsearch.similarity_search(query, k=5)
-                    prompt_1 =  f''' You need to act as a Financial analyst to identify the disputed amount.Perform a mathematical calculation to identify if the disputed amount is greater than 5000 USD or not.Given the context, give a relevant and concise response.\n\n\
+                    prompt_1 =  f''' You are a professional fraud analyst and should take the provided information as accurate. Identify the disputed amount.Perform a mathematical calculation to identify if the disputed amount is greater than 5000 USD or not.Given the context, give a relevant and concise response.\n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
                                 Response: (Provide a concise Response in a single sentence. Do not write any extra[Explanation, Note, Descricption].)'''
