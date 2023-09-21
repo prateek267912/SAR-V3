@@ -1250,18 +1250,26 @@ with col3_up:
     tmp_summary = []
     tmp_table = pd.DataFrame()
 
-    if st.session_state.llm == "Open-AI":
-        st.session_state.disabled=False
-        tmp_summary.append(st.session_state["tmp_summary_gpt"])
-        tmp_table = pd.concat([tmp_table, st.session_state["tmp_table_gpt"]], ignore_index=True)
-        tmp_table.drop_duplicates(inplace=True)
+    try:
+
+        if st.session_state.llm == "Open-AI":
+            st.session_state.disabled=False
+            tmp_summary.append(st.session_state["tmp_summary_gpt"])
+            tmp_table = pd.concat([tmp_table, st.session_state["tmp_table_gpt"]], ignore_index=True)
+            tmp_table.drop_duplicates(inplace=True)
         
 
-    elif st.session_state.llm == "Open-Source":
-        st.session_state.disabled=False
-        tmp_summary.append(st.session_state["tmp_summary_llama"])
-        tmp_table = pd.concat([tmp_table, st.session_state["tmp_table_llama"]], ignore_index=True)
-        tmp_table.drop_duplicates(inplace=True)
+        elif st.session_state.llm == "Open-Source":
+            st.session_state.disabled=False
+            tmp_summary.append(st.session_state["tmp_summary_llama"])
+            tmp_table = pd.concat([tmp_table, st.session_state["tmp_table_llama"]], ignore_index=True)
+            tmp_table.drop_duplicates(inplace=True)
+
+    except: 
+
+        e = Exception("")
+        st.exception(e)
+
 
 
     try:
@@ -1454,7 +1462,7 @@ with col_d2:
 
     with col5_up:   
         # Adding Radio button
-        st.markdown("""<span style="font-size: 24px; ">Make Decision</span>""", unsafe_allow_html=True)
+        # st.markdown("""<span style="font-size: 24px; ">Make Decision</span>""", unsafe_allow_html=True)
        
         st.markdown(
                 """ <style>
