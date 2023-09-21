@@ -845,7 +845,7 @@ with col2_up:
                 Hence, Compare the names present in the context. 
                 Reply the name of the person who is basically the suspect.\n\n\
                                 Context: {context_1}\n\
-                                Response: (Give me a concise response in one sentence.Do not add further Explanation,Note.)'''
+                                Response: (Give me a concise response in one sentence.Do not add any Explanation,Note.)'''
                     response = llama_llm(llama_13b,prompt_1)
                     chat_history[query] = response
 
