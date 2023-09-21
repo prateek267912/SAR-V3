@@ -32,7 +32,7 @@ from huggingface_hub import login
 # import pdfplumber
 # import pytesseract
 # from pdf2image import convert_from_path
-from creds import hugging_face_key
+
 
 #from playsound import playsound
 #from langchain.text_splitter import CharacterTextSplitter
@@ -108,12 +108,11 @@ def usellm(prompt):
     response = service.chat(options)
     return response.content
 
-# # Setting Config for Llama-2
-# login(token=st.secrets["HUGGINGFACEHUB_API_TOKEN"])
-# os.environ["HUGGINGFACEHUB_API_TOKEN"] = st.secrets["HUGGINGFACEHUB_API_TOKEN"]
+# Setting Config for Llama-2
+login(token=st.secrets["HUGGINGFACEHUB_API_TOKEN"])
+os.environ["HUGGINGFACEHUB_API_TOKEN"] = st.secrets["HUGGINGFACEHUB_API_TOKEN"]
 
-login(token=hugging_face_key)
-os.environ["HUGGINGFACEHUB_API_TOKEN"]=hugging_face_key
+
 
 llama_13b = HuggingFaceHub(
             repo_id="meta-llama/Llama-2-13b-chat-hf",
@@ -368,6 +367,16 @@ st.markdown("""
 
 #Adding llm type-> st.session_state.llm
 st.session_state.llm = st.radio("",options = pd.Series(["","Open-AI","Open-Source"]), horizontal=True)
+
+st.markdown(
+    """ <style>
+            div[role="radiogroup"] >  :first-child{
+                display: none !important;
+            }
+        </style>
+        """,
+    unsafe_allow_html=True
+                    )
 st.markdown("---")
 
 st.title("Suspicious Activity Reporting Assistant")
@@ -427,13 +436,13 @@ with st.sidebar:
     st.markdown("---")
 
     # Add a drop-down for case type
-    options = ["Select Case Type", "Fraud transaction dispute", "AML"]
-    selected_option_case_type = st.sidebar.selectbox("", options)
+    option1 = ["Select Case Type", "Fraud transaction dispute", "AML"]
+    selected_option_case_type = st.sidebar.selectbox("", option1)
     st.markdown("---")
     
     # Add a single dropdown
-    options = ["Select Case ID", "SAR-2023-24680", "SAR-2023-13579", "SAR-2023-97531", "SAR-2023-86420", "SAR-2023-24681"]
-    selected_option = st.sidebar.selectbox("", options)
+    option2 = ["Select Case ID", "SAR-2023-24680", "SAR-2023-13579", "SAR-2023-97531", "SAR-2023-86420", "SAR-2023-24681"]
+    selected_option = st.sidebar.selectbox("", option2)
     # Add the image to the sidebar below options
     st.sidebar.image("MicrosoftTeams-image (3).png", use_column_width=True)
 
@@ -1426,7 +1435,7 @@ with col3_up:
         paragraph = doc.add_paragraph()
         doc.add_heading('Key Insights', level=2)
         paragraph = doc.add_paragraph()
-        tmp_table.drop_duplicates(inplace=True)
+        # tmp_table.drop_duplicates(inplace=True)
         columns = list(tmp_table.columns)
         table = doc.add_table(rows=1, cols=len(columns), style="Table Grid")
         table.autofit = True
@@ -1447,6 +1456,10 @@ with col3_up:
         doc.save(bio)
     except NameError:
         pass
+        # e = RuntimeError('This is an exception of type RuntimeError')
+        # st.exception(e)
+        
+        
 
 with col4_up:
 
