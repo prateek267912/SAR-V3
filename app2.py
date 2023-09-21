@@ -905,7 +905,7 @@ with col2_up:
 
                     query = "Was the disputed amount greater than 5000 usd?"
                     context_1 = docsearch.similarity_search(query, k=5)
-                    prompt_1 =  f''' You need to act as a Financial analyst to identify the disputed amount, perform a mathematical calculation to check if the disputed amount is greater than 5000 USD or not. If yes, then write "Yes didputed amount is greater than 5000 USD". Given the context, give a relevant and concise response.\n\n\
+                    prompt_1 =  f''' You need to act as a Financial analyst to identify the disputed amount, perform a mathematical calculation to check if the disputed amount is greater than 5000 USD or not. Given the context, give a relevant and concise response.\n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
                                 Response: (Provide a concise Response in a single sentence. Do not write any extra [Explanation, Note, Descricption].)'''
