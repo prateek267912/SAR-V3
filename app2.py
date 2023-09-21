@@ -842,7 +842,7 @@ with col2_up:
                     query = "What is the suspect's name?"
                     context_1 = docsearch.similarity_search(query, k=5)
                     prompt_1 =  f'''Act as a professional fraud analyst.You need to check the document and compare if any name discrepencies are present that points towards the suspect who used the card without the consent of the cardholder.
-                                Reply the name of the person who is the suspect. Take the provided information as accurate. \n\n\
+                                Take the provided information as accurate. Reply the name of the person who is the suspect. \n\n\
                                 Context: {context_1}\n\
                                 Response: (Give a short response in a single sentence.Do not add any extra Information, Explanation,Note.)'''
                     response = llama_llm(llama_13b,prompt_1)
