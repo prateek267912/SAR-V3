@@ -551,8 +551,8 @@ st.markdown("""
 }
 
 .css-jzprzu {
-    height: 0.5rem;
-    min-height: 0.2rem;
+    height: 2rem;
+    min-height: 1rem;
     }
 
 </style>
@@ -687,87 +687,6 @@ with col1_up:
 
 
     
-#     file_pth = []
-#     for uploaded_file in pdf_files:
-#         file_ext = tuple("pdf")
-#         if uploaded_file.name.endswith(file_ext):
-#             file_pth_= os.path.join(tmp_dir_, uploaded_file.name)
-#             with open(file_pth_, "wb") as file_opn:
-#                 file_opn.write(uploaded_file.getbuffer())
-#                 file_pth.append(file_pth_)
-#         else:
-#             pass
-        
-
-
-# #     for fetched_pdf in fetched_files:
-# #         file_ext = tuple("pdf")
-# #         if fetched_pdf.endswith(file_ext):
-# #             file_pth = os.path.join('data/', fetched_pdf)
-# #             # st.write(file_pth)
-# #             temp_file_path.append(file_pth) 
-# #         else:
-# #             pass
-        
-        
-#     # # Pytesseract code
-#     # for uploaded_file in pdf_files:
-#     #     file_ext = tuple("pdf")
-#     #     if uploaded_file.name.endswith(file_ext):
-#     #         if is_searchable_pdf(uploaded_file)==False:
-#     #             st.write(f"File is not searchable:{uploaded_file.name}")
-#     #             with st.spinner('ocr initiated...'):
-#     #                 text = convert_scanned_pdf_to_searchable_pdf(uploaded_file)
-#     #                 file_pth = os.path.join(tmp_dir_, text)
-#     #                 with open(file_pth, "wb") as file_opn:
-#     #                     file_opn.write(uploaded_file.getbuffer())
-#     #                     temp_file_path.append(file_pth)
-#     #         else:
-#     #             file_pth = os.path.join(tmp_dir_, uploaded_file.name)
-#     #             with open(file_pth, "wb") as file_opn:
-#     #                 file_opn.write(uploaded_file.getbuffer())
-#     #                 temp_file_path.append(file_pth)
-#     #     else:
-#     #         pass
-    
-    
-#     # # Pytesseract code
-#     for file in file_pth:
-#         if is_searchable_pdf(file)==False:
-#             # st.write("File is not searchable")
-#             with st.spinner('ocr initiated...'):
-#                 text = convert_scanned_pdf_to_searchable_pdf(file)
-#                 st.write(text)
-#     #         file_pth = os.path.join(tmp_dir_, text)
-#     #         with open(file_pth, "wb") as file_opn:
-#     #             file_opn.write(uploaded_file.getbuffer())
-#     #             temp_file_path.append(file_pth)
-#     #     else:
-#     #         file_pth = os.path.join(tmp_dir_, uploaded_file.name)
-#     #         with open(file_pth, "wb") as file_opn:
-#     #         file_opn.write(uploaded_file.getbuffer())
-#     #         temp_file_path.append(file_pth)
-#     # else:
-#     #     pass
-
-
-#     for fetched_pdf in fetched_files:
-#         file_ext = tuple("pdf")
-#         if fetched_pdf.endswith(file_ext):
-#             selected_file_path = os.path.join(directoty_path, fetched_pdf)
-#             if is_searchable_pdf(selected_file_path)==False:
-#                 st.write(f"File is not searchable:{fetched_pdf}")
-#                 with st.spinner('ocr initiated...'):
-#                     text = convert_scanned_pdf_to_searchable_pdf(selected_file_path)
-#                     file_pth = os.path.join(tmp_dir_, text)
-#                     temp_file_path.append(file_pth)
-#             else:
-#                 file_pth = os.path.join(directoty_path, fetched_pdf)
-#                 # st.write(file_pth)
-#                 temp_file_path.append(file_pth)
-#         else:
-#             pass
-    
 
     #combining files in fetch evidence and upload evidence
     pdf_files_ = []
@@ -809,23 +728,7 @@ with col2_up:
         length_function = len,
         separators=["\n\n", "\n", " ", ""]
     )
-    #text_splitter = CharacterTextSplitter.from_tiktoken_encoder(chunk_size=100, chunk_overlap=0)
-    #texts = ''
-    
-    # @st.cache_data
-    # def embedding_store(file):
-    #     # save file
-    #     pdf_reader = PdfReader(file)
-    #     text = ""
-    #     for page in pdf_reader.pages:
-    #         text += page.extract_text()
-    #     #st.write(text)
-    #     texts =  text_splitter.split_text(text)
-    #     docs = text_to_docs(texts)
-    #     #st.write(texts)
-    #     docsearch = FAISS.from_documents(docs, hf_embeddings)
-    #     return docs, docsearch
-       
+  
 
 # Creating header
     col1,col2 = st.columns(2)
@@ -887,18 +790,11 @@ with col2_up:
                         
                     response = usellm(prompts)
                     
-                    # memory.save_context({"input": f"{queries}"}, {"output": f"{response}"})
-                    # st.write(response)
-                    # st.write(memory.load_memory_variables({}))
-
-
-
-                    # Convert the response in dictionary from tbl
-                    # prompt_conv = f" Convert the tabular data into a python dictionary\
-                    #     context: {response}\
-                    #     Response (give me the response in the form of a python dictionary with questions exactly as it is): "
-                    # resp_dict = usellm(prompt_conv)
-                    # st.write(response)
+                    if is_json(response):
+                        st.write("It is json")
+                    else:
+                        st.write("Not json")
+                        
                     resp_dict_obj = json.loads(response)
                     res_df_gpt = pd.DataFrame(resp_dict_obj.items(), columns=['Question','Answer'])
                     # st.table(res_df_gpt)
