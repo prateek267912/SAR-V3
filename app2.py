@@ -1350,10 +1350,9 @@ with col3_up:
 
         bio = io.BytesIO()
         doc.save(bio)
-    except NameError:
-        pass
-        # e = RuntimeError('This is an exception of type RuntimeError')
-        # st.exception(e)
+    except:
+        e = Exception("")
+        st.exception(e)
         
         
 
