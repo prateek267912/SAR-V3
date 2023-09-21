@@ -844,7 +844,7 @@ with col2_up:
                     prompt_1 =  f'''Act as a professional fraud analyst.You need to check the document and compare if any name discrepencies are present that points towards the suspect who used the card without the consent of the cardholder.
                                 Reply the name of the person who is the suspect. Take the provided information as accurate. \n\n\
                                 Context: {context_1}\n\
-                                Response: (Give a short response in a single sentence.Do not add any extra Information, Explanation,Note.)'''
+                                Response: (Give a short response.Do not add any extra Information, Explanation,Note.)'''
                     response = llama_llm(llama_13b,prompt_1)
                     chat_history[query] = response
 
@@ -856,7 +856,7 @@ with col2_up:
                       Take the provided information as accurate.\n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
-                                Response: (Give a short response in a single sentence. Do not add any extra Information,Explanation,Note.)'''
+                                Response: (Give a short response. Do not add any extra Information,Explanation,Note.)'''
                     response = llama_llm(llama_13b,prompt_1)
                     chat_history[query] = response
 
@@ -910,7 +910,7 @@ with col2_up:
                                      Take the provided information as accurate. \n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
-                                Response: (Give a short response in a single sentence. Do not give any extra Explanation, Note, Descricption, Information.)'''
+                                Response: (Give a short response. Do not give any extra Explanation, Note, Descricption, Information.)'''
                     response = llama_llm(llama_13b,prompt_1)
                     chat_history[query] = response
 
