@@ -1252,14 +1252,16 @@ with col3_up:
 
     if st.session_state.llm == "Open-AI":
         st.session_state.disabled=False
-        tmp_table = pd.concat([tmp_table, st.session_state["tmp_table_gpt"]], ignore_index=True)
         tmp_summary.append(st.session_state["tmp_summary_gpt"])
-
+        tmp_table = pd.concat([tmp_table, st.session_state["tmp_table_gpt"]], ignore_index=True)
+        tmp_table.drop_duplicates(inplace=True)
+        
 
     elif st.session_state.llm == "Open-Source":
         st.session_state.disabled=False
         tmp_summary.append(st.session_state["tmp_summary_llama"])
         tmp_table = pd.concat([tmp_table, st.session_state["tmp_table_llama"]], ignore_index=True)
+        tmp_table.drop_duplicates(inplace=True)
 
 
     try:
@@ -1331,7 +1333,6 @@ with col3_up:
         paragraph = doc.add_paragraph()
         doc.add_heading('Key Insights', level=2)
         paragraph = doc.add_paragraph()
-        # tmp_table.drop_duplicates(inplace=True)
         columns = list(tmp_table.columns)
         table = doc.add_table(rows=1, cols=len(columns), style="Table Grid")
         table.autofit = True
