@@ -296,7 +296,7 @@ if "fin_opt" not in st.session_state:
 if "context_1" not in st.session_state:
     st.session_state.context_1 = ''
 if "llm" not in st.session_state:
-    st.session_state.llm = 'Open-AI'
+    st.session_state.llm = 'Closed-Source'
 if "pdf_files" not in st.session_state:
     st.session_state.pdf_files = []
 
@@ -366,7 +366,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 #Adding llm type-> st.session_state.llm
-st.session_state.llm = st.radio("",options = pd.Series(["","Open-AI","Open-Source"]), horizontal=True)
+st.session_state.llm = st.radio("",options = pd.Series(["","Closed-Source","Open-Source"]), horizontal=True)
 
 st.markdown(
     """ <style>
@@ -733,8 +733,8 @@ with col2_up:
 # Creating header
     col1,col2 = st.columns(2)
     with col1:
-        st.markdown("""<span style="font-size: 24px; ">Pre-Set Questionnaire</span>""", unsafe_allow_html=True)
-        # st.subheader('Pre-Set Questionnaire')
+        st.markdown("""<span style="font-size: 24px; ">Key Questions</span>""", unsafe_allow_html=True)
+        # st.subheader('Key Questions')
         # Create a Pandas DataFrame with your data
         data = {'Questions': [" What is the victim's name?","What is the suspect's name?",' List the merchant name',' How was the bank notified?',' When was the bank notified?',' What is the fraud type?',' When did the fraud occur?',' Was the disputed amount greater than 5000 USD?',' What type of cards are involved?',' Was the police report filed?']}
         df_fixed = pd.DataFrame(data)
@@ -764,7 +764,7 @@ with col2_up:
             if temp_file_path is not None:
                 # File handling logic
                 _, docsearch = embedding_store(temp_file_path)
-                if st.session_state.llm == "Open-AI":
+                if st.session_state.llm == "Closed-Source":
                     queries ="Please provide the following information regarding the possible fraud case: What is the name of the customer name,\
                     has any suspect been reported, list the merchant name, how was the bank notified, when was the bank notified, what is the fraud type,\
                     when did the fraud occur, was the disputed amount greater than 5000 USD, what type of cards are involved, was the police report filed,\
@@ -969,7 +969,7 @@ with col2_up:
         llm_chain = LLMChain(prompt=prompt, llm=llm)
         response = llm_chain.run({"query":query, "context":context})
         return response
-    if st.session_state.llm == "Open-AI":
+    if st.session_state.llm == "Closed-Source":
         with st.spinner('Getting you information...'):      
             if query:
                 # Text input handling logic
@@ -1211,7 +1211,7 @@ with col3_up:
         st.markdown("""<span style="font-size: 24px; ">Summarize key findings of the case.</span>""", unsafe_allow_html=True)
         st.write()
         if st.button("Summarize",disabled=st.session_state.disabled):
-            if st.session_state.llm == "Open-AI":
+            if st.session_state.llm == "Closed-Source":
                 st.session_state.disabled=False
         
                 summ_dict_gpt = st.session_state.tmp_table_gpt.set_index('Question')['Answer'].to_dict()
@@ -1253,7 +1253,7 @@ with col3_up:
 
     try:
 
-        if st.session_state.llm == "Open-AI":
+        if st.session_state.llm == "Closed-Source":
             st.session_state.disabled=False
             tmp_summary.append(st.session_state["tmp_summary_gpt"])
             tmp_table = pd.concat([tmp_table, st.session_state["tmp_table_gpt"]], ignore_index=True)
