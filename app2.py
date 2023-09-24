@@ -731,7 +731,7 @@ with col2_up:
   
 
 # Creating header
-    col1,col2,col3 = st.columns(3)
+    col1,col2 = st.columns(2)
     with col1:
         st.markdown("""<span style="font-size: 24px; ">Key Questions</span>""", unsafe_allow_html=True)
         # st.subheader('Key Questions')
