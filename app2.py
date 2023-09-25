@@ -815,6 +815,7 @@ with col2_up:
 
                     df_res = {'SAR Recommendation':response1}  
                     df = pd.DataFrame(df_res) 
+                    df.index = df.index +1
 
                     st.write(df)              
 
