@@ -1303,8 +1303,7 @@ with col3_up:
         e = Exception("")
         st.exception(e)
 
-    st.write(st.session_state["sara_recommendation"])
-
+    
     try:
         # initiate the doc file
         doc = docx.Document()
@@ -1371,6 +1370,7 @@ with col3_up:
         doc.add_heading('Summary', level=2)
         paragraph = doc.add_paragraph()
         doc.add_paragraph(tmp_summary)
+        paragraph = doc.add_paragraph()
         doc.add_heading('SARA Recommendation', level=2)
         paragraph = doc.add_paragraph()
         doc.add_paragraph(st.session_state["sara_recommendation"])       
