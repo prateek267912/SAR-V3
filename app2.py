@@ -436,7 +436,7 @@ with st.sidebar:
     st.markdown("---")
 
     # Add a drop-down for case type
-    option1 = ["Select Case Type", "Fraud transaction dispute", "AML"]
+    option1 = ["Select Case Type", "Fraud transaction dispute", "Money Laundering", "Insider Trading"]
     selected_option_case_type = st.sidebar.selectbox("", option1)
     st.markdown("---")
     
@@ -452,8 +452,10 @@ if selected_option_case_type == "Select Case Type":
     st.header("")
 elif selected_option_case_type == "Fraud transaction dispute":
     st.markdown("### :blue[Fraud transaction dispute]")
-elif selected_option_case_type == "AML":
-    st.markdown("### :red[Anti-Money Laundering]")
+elif selected_option_case_type == "Money Laundering":
+    st.markdown("### :red[Money Laundering]")
+elif selected_option_case_type == "Insider Trading":
+    st.markdown("### :red[Insider Trading]")
 # st.markdown('---')
 
 # Redirect to Merge PDFs page when "Merge PDFs" is selected
