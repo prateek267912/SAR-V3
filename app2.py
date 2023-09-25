@@ -814,8 +814,7 @@ with col2_up:
                     response1 = usellm(prompt)   
 
                     df_res = {'SAR Recommendation':response1} 
-                    df_res_dict = json.loads(df_res) 
-                    df = pd.DataFrame(df_res_dict.items,columns=['Questions','Answers']) 
+                    df = pd.DataFrame(df_res.items(),columns=['Questions','Answers']) 
                     
 
                     st.write(df)              
