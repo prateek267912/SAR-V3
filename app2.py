@@ -291,6 +291,8 @@ if "tmp_summary_gpt" not in st.session_state:
     st.session_state["tmp_summary_gpt"] = ''
 if "tmp_summary_llama" not in st.session_state:
     st.session_state["tmp_summary_llama"] = ''
+if "sara_recommendation" not in st.session_state:
+    st.session_state["sara_recommendation"] = ''
 if "case_num" not in st.session_state:
     st.session_state.case_num = ''
 if "fin_opt" not in st.session_state:
@@ -804,7 +806,10 @@ with col2_up:
                                 Context: {context_1}\n\                      
                                 Response: (Give me a concise response in pointers)'''
                     
-                    response1 = usellm(prompt)   
+                    response1 = usellm(prompt) 
+                    st.session_state["sara_recommendation"] = response1
+
+                
 
                     df_res = {'SAR Recommendation':response1} 
                     df_res_new = pd.DataFrame(df_res.items(),columns=['Question','Answer'])
@@ -1276,7 +1281,8 @@ with col3_up:
     
     tmp_summary = []
     tmp_table = pd.DataFrame()
-
+    
+        
     try:
 
         if st.session_state.llm == "Closed-Source":
@@ -1365,6 +1371,9 @@ with col3_up:
         doc.add_heading('Summary', level=2)
         paragraph = doc.add_paragraph()
         doc.add_paragraph(tmp_summary)
+        doc.add_heading('SARA Recommendation', level=2)
+        paragraph = doc.add_paragraph()
+        doc.add_paragraph(st.session_state["sara_recommendation"])       
         paragraph = doc.add_paragraph()
         doc.add_heading('Key Insights', level=2)
         paragraph = doc.add_paragraph()
