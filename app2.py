@@ -1391,7 +1391,6 @@ with col3_up:
         # st.download_button(label='Download Report', data=output_bytes, file_name='evidence.docx', mime='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
         paragraph = doc.add_paragraph()
         doc.add_heading('SARA Recommendation', level=2)
-        paragraph = doc.add_paragraph()
         doc.add_paragraph()       
         paragraph = doc.add_paragraph(st.session_state["sara_recommendation_gpt"])
 
