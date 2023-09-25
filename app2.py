@@ -1388,12 +1388,12 @@ with col3_up:
         # save document
         # output_bytes = docx.Document.save(doc, 'output.docx')
         # st.download_button(label='Download Report', data=output_bytes, file_name='evidence.docx', mime='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-        
+        paragraph = doc.add_paragraph()
         doc.add_heading('SARA Recommendation', level=2)
         paragraph = doc.add_paragraph()
         doc.add_paragraph(st.session_state["sara_recommendation"])       
         paragraph = doc.add_paragraph()
-        
+
         bio = io.BytesIO()
         doc.save(bio)
     except:
