@@ -731,7 +731,7 @@ with col2_up:
         st.markdown("""<span style="font-size: 24px; ">Key Questions</span>""", unsafe_allow_html=True)
         # st.subheader('Key Questions')
         # Create a Pandas DataFrame with your data
-        data = {'Questions': [" What is the victim's name?","What is the suspect's name?",' List the merchant name',' How was the bank notified?',' When was the bank notified?',' What is the fraud type?',' When did the fraud occur?',' Was the disputed amount greater than 5000 USD?',' What type of cards are involved?',' Was the police report filed?','Is this a Suspicious Activity?']}
+        data = {'Questions': [" What is the victim's name?","What is the suspect's name?",' List the merchant name',' How was the bank notified?',' When was the bank notified?',' What is the fraud type?',' When did the fraud occur?',' Was the disputed amount greater than 5000 USD?',' What type of cards are involved?',' Was the police report filed?']}
         df_fixed = pd.DataFrame(data)
         df_fixed.index = df_fixed.index +1
     with col2:
@@ -1490,12 +1490,12 @@ with col_d2:
     with col5_up:   
         # Adding Radio button
             
-        st.markdown("""<span style="font-size: 24px; ">Is SAR filing required?</span>""", unsafe_allow_html=True)
+        st.markdown(""" <font color="blue";font-size: 24px>Is SAR filing required?</font>>""", unsafe_allow_html=True)
 
         st.write("#### SARA Recommendation")
-        st.markdown("""<span style="font-size: 18px;"> Based on the following findings for the underlying case, under Bank Secrecy Act, it is recommended to file this case as a suspicious activity:</span>""", unsafe_allow_html=True)
-        st.markdown("""<span style="font-size: 18px;">(1) Transaction amount is above the $5,000 value threshold</span>""", unsafe_allow_html=True)
-        st.markdown("""<span style="font-size: 18px;">(2) There is an indication of suspicion with involvement of multiple individuals, mismatch of customer details on merchant invoice and identification of a potential suspect.</span>""", unsafe_allow_html=True)           
+        st.markdown("""<span style="font-size: 18px;color:#808080"> *Based on the following findings for the underlying case, under Bank Secrecy Act, it is recommended to file this case as a suspicious activity:*</span>""", unsafe_allow_html=True)
+        st.markdown("""<span style="font-size: 18px;color:#808080">*1. Transaction amount is above the $5,000 value threshold*</span>""", unsafe_allow_html=True)
+        st.markdown("""<span style="font-size: 18px;color:#808080">*2. There is an indication of suspicion with involvement of multiple individuals, mismatch of customer details on merchant invoice and identification of a potential suspect*.</span>""", unsafe_allow_html=True)           
                   
        
         selected_rad = st.radio(":blue", ["Yes", "No", "Refer for review"], horizontal=True,disabled=st.session_state.disabled)
