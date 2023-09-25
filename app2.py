@@ -1303,7 +1303,7 @@ with col3_up:
         e = Exception("")
         st.exception(e)
 
-
+    st.write(st.session_state["sara_recommendation"])
 
     try:
         # initiate the doc file
