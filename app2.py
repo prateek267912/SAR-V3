@@ -816,10 +816,12 @@ with col2_up:
                     df_res = {'SAR Recommendation':response1} 
                     df_res_new = pd.DataFrame(df_res.items(),columns=['Questions','Answers'])
                     # st.write(df_res_new)
+                     
+                    res_df_gpt_new = pd.DataFrame()
+                    
+                    res_df_gpt_new.append(res_df_gpt)
 
-                    frames = [res_df_gpt,df_res_new]
-
-                    res_df_gpt_new = pd.concat(frames)
+                    res_df_gpt_new.append(df_res_new)
 
 
                     st.write(res_df_gpt_new)
