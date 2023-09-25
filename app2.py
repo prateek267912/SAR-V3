@@ -798,18 +798,18 @@ with col2_up:
                     query = "Is this a Suspicious Activity?"
                     context_1 = docsearch.similarity_search(query, k=5)
                     prompt = f'''Act as a financial analyst and give concise answer to the question, with given Context.
-                    This can be addresses as a suspicious activity based on [transaction amount,suspect name not matching with the customer name, suspect address does not match with the customer address].\n\n\
+                    This can be addressed as a suspicious activity based on [transaction amount,fraud type,suspect name not matching with the customer name, suspect address does not match with the customer address].\n\n\
                     
                                 Question: {query}\n\
                                 Context: {context_1}\n\                      
-                                Response: (Give me response in pointers)'''
+                                Response: (Give me a concise response in pointers)'''
                     
                     response1 = usellm(prompt)   
 
                     df_res = {'SAR Recommendation':response1} 
                     df_res_new = pd.DataFrame(df_res.items(),columns=['Question','Answer'])
 
-                    res_df_gpt_new = pd.concat([res_df_gpt, df_res_new], ignore_index=True)
+                    # res_df_gpt_new = pd.concat([res_df_gpt, df_res_new], ignore_index=True)
                     # st.table(res_df_gpt_new)
 
 
@@ -836,14 +836,14 @@ with col2_up:
                     # st.session_state["tmp_table_gpt"] = pd.concat([st.session_state.tmp_table_gpt, res_df_gpt], ignore_index=True)
                     
                     try:
-                        res_df_gpt_new.reset_index(drop=True, inplace=True)
+                        res_df_gpt.reset_index(drop=True, inplace=True)
                         index_ = pd.Series([1,2,3,4,5,6,7,8,9,10,11])
-                        res_df_gpt_new = res_df_gpt_new.set_index([index_])
+                        res_df_gpt = res_df_gpt.set_index([index_])
 
                        
                     except IndexError: 
                         pass
-                    st.table(res_df_gpt_new)
+                    st.table(res_df_gpt)
                     st.session_state["tmp_table_gpt"] = pd.concat([st.session_state.tmp_table_gpt, res_df_gpt_new], ignore_index=True)
                 
                     
