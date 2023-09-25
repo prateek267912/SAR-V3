@@ -846,7 +846,10 @@ with col2_up:
                     st.table(res_df_gpt_new)
                     st.session_state["tmp_table_gpt"] = pd.concat([st.session_state.tmp_table_gpt, res_df_gpt_new], ignore_index=True)
                 
-                
+                    
+                    st.markdown("### SARA Recommendation")
+                    st.write(response1)
+                    
                 elif st.session_state.llm == "Open-Source":
 
                     chat_history = {}
