@@ -291,8 +291,8 @@ if "tmp_summary_gpt" not in st.session_state:
     st.session_state["tmp_summary_gpt"] = ''
 if "tmp_summary_llama" not in st.session_state:
     st.session_state["tmp_summary_llama"] = ''
-if "sara_recommendation" not in st.session_state:
-    st.session_state["sara_recommendation"] = ''
+if "sara_recommendation_gpt" not in st.session_state:
+    st.session_state["sara_recommendation_gpt"] = ''
 if "case_num" not in st.session_state:
     st.session_state.case_num = ''
 if "fin_opt" not in st.session_state:
@@ -807,7 +807,7 @@ with col2_up:
                                 Response: (Give me a concise response in pointers)'''
                     
                     response1 = usellm(prompt) 
-                    st.session_state["sara_recommendation"] = response1
+                    st.session_state["sara_recommendation_gpt"] = response1
 
                 
 
@@ -1281,7 +1281,7 @@ with col3_up:
     
     tmp_summary = []
     tmp_table = pd.DataFrame()
-    sara_recommendation = []
+    
     
         
     try:
@@ -1289,7 +1289,6 @@ with col3_up:
         if st.session_state.llm == "Closed-Source":
             st.session_state.disabled=False
             tmp_summary.append(st.session_state["tmp_summary_gpt"])
-            sara_recommendation.append(st.session_state["sara_recommendation"])
             tmp_table = pd.concat([tmp_table, st.session_state["tmp_table_gpt"]], ignore_index=True)
             tmp_table.drop_duplicates(inplace=True)
         
@@ -1394,7 +1393,7 @@ with col3_up:
         doc.add_heading('SARA Recommendation', level=2)
         paragraph = doc.add_paragraph()
         doc.add_paragraph()       
-        paragraph = doc.add_paragraph(sara_recommendation)
+        paragraph = doc.add_paragraph(st.session_state["sara_recommendation_gpt"])
 
         bio = io.BytesIO()
         doc.save(bio)
