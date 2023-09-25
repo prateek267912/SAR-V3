@@ -1493,9 +1493,9 @@ with col_d2:
         st.markdown("""<span style="font-size: 24px;color:#0000FF">Is SAR filing required?</span>""", unsafe_allow_html=True)
 
         st.write("#### SARA Recommendation")
-        st.markdown("""<span style="font-size: 18px;color:#5A5A5A"> *Based on the following findings for the underlying case, under Bank Secrecy Act, it is recommended to file this case as a suspicious activity:*</span>""", unsafe_allow_html=True)
-        st.markdown("""<span style="font-size: 18px;color:#5A5A5A">*1. Transaction amount is above the $5,000 value threshold*</span>""", unsafe_allow_html=True)
-        st.markdown("""<span style="font-size: 18px;color:#5A5A5A">*2. There is an indication of suspicion with involvement of multiple individuals, mismatch of customer details on merchant invoice and identification of a potential suspect*.</span>""", unsafe_allow_html=True)           
+        st.markdown("""<span style="font-size: 18px;color:#7E7F80"> *Based on the following findings for the underlying case, under Bank Secrecy Act, it is recommended to file this case as a suspicious activity:*</span>""", unsafe_allow_html=True)
+        st.markdown("""<span style="font-size: 18px;color:#7E7F80">*1. Transaction amount is above the $5,000 value threshold*</span>""", unsafe_allow_html=True)
+        st.markdown("""<span style="font-size: 18px;color:#7E7F80">*2. There is an indication of suspicion with involvement of multiple individuals, mismatch of customer details on merchant invoice and identification of a potential suspect*.</span>""", unsafe_allow_html=True)           
                   
        
         selected_rad = st.radio(":blue", ["Yes", "No", "Refer for review"], horizontal=True,disabled=st.session_state.disabled)
