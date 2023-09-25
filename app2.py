@@ -814,8 +814,8 @@ with col2_up:
                     response1 = usellm(prompt)   
 
                     df_res = {'SAR Recommendation':response1}  
-                    df = pd.DataFrame(df_res) 
-                    df.index = df.index +1
+                    df = pd.DataFrame(df_res,index=pd.Series([1])) 
+                    
 
                     st.write(df)              
 
