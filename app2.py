@@ -738,7 +738,7 @@ with col2_up:
         st.markdown("""<span style="font-size: 24px; ">Key Questions</span>""", unsafe_allow_html=True)
         # st.subheader('Key Questions')
         # Create a Pandas DataFrame with your data
-        data = {'Questions': [" What is the victim's name?","What is the suspect's name?",' List the merchant name',' How was the bank notified?',' When was the bank notified?',' What is the fraud type?',' When did the fraud occur?',' Was the disputed amount greater than 5000 USD?',' What type of cards are involved?',' Was the police report filed?']}
+        data = {'Questions': [" What is the victim's name?","What is the suspect's name?",' List the merchant name',' How was the bank notified?',' When was the bank notified?',' What is the fraud type?',' When did the fraud occur?',' Was the disputed amount greater than 5000 USD?',' What type of cards are involved?',' Was the police report filed?','Is this a Suspicious Activity?']}
         df_fixed = pd.DataFrame(data)
         df_fixed.index = df_fixed.index +1
     with col2:
@@ -791,6 +791,21 @@ with col2_up:
                         where the dictionary key would carry the questions and its value would have a descriptive answer to the questions asked): "
                         
                     response = usellm(prompts)
+
+                    query = "Is this a Suspicious Activity?"
+                    context_1 = docsearch.similarity_search(query, k=5)
+                    prompt = f'''Act as a financial analyst and give concise answer to the question, with given Context.
+                    This can be addresses as a suspicious activity based on [transaction amount,suspect name not matching with the customer name, suspect address does not match with the customer address].\n\n\
+                    
+                                Question: {query}\n\
+                                Context: {context_1}\n\                      
+                                Response: (Give me response in pointers)'''
+                    
+                    response1 = usellm(prompt)   
+
+                    df = {'SAR Recommendation':response1}   
+
+                    st.write(df)              
 
                     try:
 
