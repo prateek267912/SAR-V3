@@ -814,10 +814,12 @@ with col2_up:
                     response1 = usellm(prompt)   
 
                     df_res = {'SAR Recommendation':response1} 
-                    df = pd.DataFrame(df_res.items(),columns=['Questions','Answers']) 
-                    
 
-                    st.write(df)              
+                    df_res_dict = json.loads(df_res) 
+                    df = pd.DataFrame(df_res_dict.items,columns=['Questions','Answers'])
+                    df.reset_index(drop=True, inplace=True)
+                    st.write(df)
+                          
 
 
                     
@@ -839,6 +841,8 @@ with col2_up:
                         res_df_gpt.reset_index(drop=True, inplace=True)
                         index_ = pd.Series([1,2,3,4,5,6,7,8,9,10])
                         res_df_gpt = res_df_gpt.set_index([index_])
+
+                       
                     except IndexError: 
                         pass
                     st.table(res_df_gpt)
