@@ -817,7 +817,7 @@ with col2_up:
                     df_res_new = pd.DataFrame(df_res.items(),columns=['Questions','Answers'])
                     # st.write(df_res_new)
 
-                    res_df_gpt_new = pd.concat([ res_df_gpt,df_res_new], ignore_index=True)
+                    res_df_gpt_new = res_df_gpt.append(df_res_new, ignore_index=True)
                     st.write(res_df_gpt_new)
                           
 
