@@ -1490,19 +1490,21 @@ with col_d2:
     with col5_up:   
         # Adding Radio button
             
-        # st.markdown("""<span style="font-size: 24px; ">Is SAR filing required?</span>""", unsafe_allow_html=True)
+        st.markdown("""<span style="font-size: 24px; ">Is SAR filing required?</span>""", unsafe_allow_html=True)
+
+        st.write("#### SARA Recommendation")
+        st.markdown("""<span style="font-size: 18px;"> Based on the following findings for the underlying case, under Bank Secrecy Act, it is recommended to file this case as a suspicious activity:</span>""", unsafe_allow_html=True)
+        st.markdown("""<span style="font-size: 18px;">(1) Transaction amount is above the $5,000 value threshold</span>""", unsafe_allow_html=True)
+        st.markdown("""<span style="font-size: 18px;">(2) There is an indication of suspicion with involvement of multiple individuals, mismatch of customer details on merchant invoice and identification of a potential suspect.</span>""", unsafe_allow_html=True)           
+                  
        
-        selected_rad = st.radio(":blue[Is SAR filing required?]", ["Yes", "No", "Refer for review"], horizontal=True,disabled=st.session_state.disabled)
+        selected_rad = st.radio(":blue", ["Yes", "No", "Refer for review"], horizontal=True,disabled=st.session_state.disabled)
         if selected_rad == "Refer for review":
             email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
             email_id = st.text_input("Enter your email ID")
             if email_id and not re.match(email_regex, email_id):
                 st.error("Please enter a valid email ID")
-        st.write(" ")
-        st.markdown("""<span style="font-size: 18px;"> Based on the following findings for the underlying case, under Bank Secrecy Act, it is recommended to file this case as a suspicious activity:</span>""", unsafe_allow_html=True)
-        st.markdown("""<span style="font-size: 16px;">(1) Transaction amount is above the $5,000 value threshold</span>""", unsafe_allow_html=True)
-        st.markdown("""<span style="font-size: 16px;">(2) There is an indication of suspicion with involvement of multiple individuals, mismatch of customer details on merchant invoice and identification of a potential suspect.</span>""", unsafe_allow_html=True)           
-                  
+
 
         if st.button("Submit"):
             if selected_rad in ("Yes"):
