@@ -805,12 +805,12 @@ with col2_up:
                     response1 = usellm(prompt)   
 
                     df_res = {'SAR Recommendation':response1} 
-                    df_res_new = pd.DataFrame(df_res.items(),columns=['Questions','Answer'])
+                    df_res_new = pd.DataFrame(df_res.items(),columns=['Question','Answer'])
 
-                    # res_df_gpt_new = pd.concat([res_df_gpt, df_res_new], ignore_index=True)
-                    # st.table(df_res_new)
+                    res_df_gpt_new = pd.concat([res_df_gpt, df_res_new], ignore_index=True)
+                    st.table(res_df_gpt_new)
 
-                    st.markdown(df_res_new)
+                    # st.markdown(df_res_new)
                      
                    
                     
