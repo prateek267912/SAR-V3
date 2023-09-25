@@ -1492,9 +1492,7 @@ with col_d2:
                   
 
         if st.button("Submit"):
-            if selected_rad in ("str_opt1"):
-                st.write("") 
-            elif selected_rad in ("Yes"):
+            if selected_rad in ("Yes"):
                 st.warning("Thanks for your review, your response has been submitted")
             elif selected_rad in ("No"):
                 st.success("Thanks for your review, your response has been submitted")
