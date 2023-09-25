@@ -844,7 +844,7 @@ with col2_up:
                     except IndexError: 
                         pass
                     st.table(res_df_gpt)
-                    st.session_state["tmp_table_gpt"] = pd.concat([st.session_state.tmp_table_gpt, res_df_gpt_new], ignore_index=True)
+                    st.session_state["tmp_table_gpt"] = pd.concat([st.session_state.tmp_table_gpt, res_df_gpt], ignore_index=True)
                 
                     
                     st.markdown("### SARA Recommendation")
