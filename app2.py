@@ -366,7 +366,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 #Adding llm type-> st.session_state.llm
-st.session_state.llm = st.radio("",options = pd.Series(["","Closed-Source","Open-Source"]), horizontal=True)
+st.session_state.llm = st.radio("",options = pd.Series(["Closed-Source","Open-Source"]), horizontal=True)
 
 st.markdown("---")
 
