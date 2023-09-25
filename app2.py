@@ -1490,7 +1490,7 @@ with col_d2:
     with col5_up:   
         # Adding Radio button
             
-        st.markdown(""" <font color="blue";font-size: 24px>Is SAR filing required?</font>>""", unsafe_allow_html=True)
+        st.markdown("""<span style="font-size: 24px;color:#0000FF">Is SAR filing required?</span>""", unsafe_allow_html=True)
 
         st.write("#### SARA Recommendation")
         st.markdown("""<span style="font-size: 18px;color:#808080"> *Based on the following findings for the underlying case, under Bank Secrecy Act, it is recommended to file this case as a suspicious activity:*</span>""", unsafe_allow_html=True)
