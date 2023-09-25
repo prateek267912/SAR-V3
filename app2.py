@@ -93,6 +93,8 @@ def merge_pdfs(pdf_list):
     pdf_merger.close()
     return output_pdf
 
+def new_line(string):
+    pass
 
 @st.cache_data
 def usellm(prompt):
@@ -808,7 +810,11 @@ with col2_up:
                     df_res_new = pd.DataFrame(df_res.items(),columns=['Question','Answer'])
 
                     res_df_gpt_new = pd.concat([res_df_gpt, df_res_new], ignore_index=True)
-                    st.table(res_df_gpt_new)
+                    # st.table(res_df_gpt_new)
+
+
+
+
 
                     # st.markdown(df_res_new)
                      
@@ -830,15 +836,15 @@ with col2_up:
                     # st.session_state["tmp_table_gpt"] = pd.concat([st.session_state.tmp_table_gpt, res_df_gpt], ignore_index=True)
                     
                     try:
-                        res_df_gpt.reset_index(drop=True, inplace=True)
-                        index_ = pd.Series([1,2,3,4,5,6,7,8,9,10])
-                        res_df_gpt = res_df_gpt.set_index([index_])
+                        res_df_gpt_new.reset_index(drop=True, inplace=True)
+                        index_ = pd.Series([1,2,3,4,5,6,7,8,9,10,11])
+                        res_df_gpt_new = res_df_gpt_new.set_index([index_])
 
                        
                     except IndexError: 
                         pass
-                    st.table(res_df_gpt)
-                    st.session_state["tmp_table_gpt"] = pd.concat([st.session_state.tmp_table_gpt, res_df_gpt], ignore_index=True)
+                    st.table(res_df_gpt_new)
+                    st.session_state["tmp_table_gpt"] = pd.concat([st.session_state.tmp_table_gpt, res_df_gpt_new], ignore_index=True)
                 
                 
                 elif st.session_state.llm == "Open-Source":
