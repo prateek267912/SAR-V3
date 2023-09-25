@@ -792,6 +792,16 @@ with col2_up:
                         
                     response = usellm(prompts)
 
+                    try:
+
+                        resp_dict_obj = json.loads(response)
+                        res_df_gpt = pd.DataFrame(resp_dict_obj.items(), columns=['Question','Answer'])
+                    
+                    except:
+                        e = Exception("")
+                        st.exception(e)
+                                       
+
                     query = "Is this a Suspicious Activity?"
                     context_1 = docsearch.similarity_search(query, k=5)
                     prompt = f'''Act as a financial analyst and give concise answer to the question, with given Context.
@@ -803,19 +813,12 @@ with col2_up:
                     
                     response1 = usellm(prompt)   
 
-                    df = {'SAR Recommendation':response1}   
+                    df_res = {'SAR Recommendation':response1}  
+                    df = pd.DataFrame(df_res) 
 
                     st.write(df)              
 
-                    try:
 
-                        resp_dict_obj = json.loads(response)
-                        res_df_gpt = pd.DataFrame(resp_dict_obj.items(), columns=['Question','Answer'])
-                    
-                    except:
-                        e = Exception("")
-                        st.exception(e)
-                    
                     
 
                     # try:
