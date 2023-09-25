@@ -1501,7 +1501,7 @@ with col_d2:
         selected_rad = st.radio(":blue", ["Yes", "No", "Refer for review"], horizontal=True,disabled=st.session_state.disabled)
         if selected_rad == "Refer for review":
             email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-            email_id = st.text_input("Enter your email ID")
+            email_id = st.text_input("Enter email ID")
             if email_id and not re.match(email_regex, email_id):
                 st.error("Please enter a valid email ID")
 
