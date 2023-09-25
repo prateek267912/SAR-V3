@@ -1371,10 +1371,6 @@ with col3_up:
         paragraph = doc.add_paragraph()
         doc.add_paragraph(tmp_summary)
         paragraph = doc.add_paragraph()
-        doc.add_heading('SARA Recommendation', level=2)
-        paragraph = doc.add_paragraph()
-        doc.add_paragraph(st.session_state["sara_recommendation"])       
-        paragraph = doc.add_paragraph()
         doc.add_heading('Key Insights', level=2)
         paragraph = doc.add_paragraph()
         columns = list(tmp_table.columns)
@@ -1384,7 +1380,7 @@ with col3_up:
             # set_cell_margins(table.cell(0, col), top=100, start=100, bottom=100, end=50) # set cell margin
             table.cell(0, col).text = columns[col]
         # doc.add_table(st.session_state.tmp_table.shape[0]+1, st.session_state.tmp_table.shape[1], style='Table Grid')
-
+        
         for i, row in enumerate(tmp_table.itertuples()):
             table_row = table.add_row().cells # add new row to table
             for col in range(len(columns)): # iterate over each column in row and add text
@@ -1392,7 +1388,12 @@ with col3_up:
         # save document
         # output_bytes = docx.Document.save(doc, 'output.docx')
         # st.download_button(label='Download Report', data=output_bytes, file_name='evidence.docx', mime='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-
+        
+        doc.add_heading('SARA Recommendation', level=2)
+        paragraph = doc.add_paragraph()
+        doc.add_paragraph(st.session_state["sara_recommendation"])       
+        paragraph = doc.add_paragraph()
+        
         bio = io.BytesIO()
         doc.save(bio)
     except:
