@@ -815,19 +815,10 @@ with col2_up:
 
                     df_res = {'SAR Recommendation':response1} 
                     df_res_new = pd.DataFrame(df_res.items(),columns=['Questions','Answers'])
-                    # st.write(df_res_new)
+                    st.write(df_res_new)
                      
-                    res_df_gpt_new = pd.DataFrame()
+                   
                     
-                    res_df_gpt_new.append(res_df_gpt)
-
-                    res_df_gpt_new.append(df_res_new)
-
-
-                    st.write(res_df_gpt_new)
-                          
-
-
                     
 
                     # try:
@@ -1494,17 +1485,7 @@ with col_d2:
 
     with col5_up:   
         # Adding Radio button
-        # st.markdown("""<span style="font-size: 24px; ">Make Decision</span>""", unsafe_allow_html=True)
-       
-        st.markdown(
-                """ <style>
-                        div[role="radiogroup"] >  :first-child{
-                            display: none !important;
-                        }
-                    </style>
-                    """,
-                unsafe_allow_html=True
-            )
+            
         # st.markdown("""<span style="font-size: 24px; ">Is SAR filing required?</span>""", unsafe_allow_html=True)
        
         selected_rad = st.radio(":blue[Is SAR filing required?]", ["opt1","Yes", "No", "Refer for review"], horizontal=True,disabled=st.session_state.disabled)
@@ -1513,6 +1494,13 @@ with col_d2:
             email_id = st.text_input("Enter your email ID")
             if email_id and not re.match(email_regex, email_id):
                 st.error("Please enter a valid email ID")
+
+        st.markdown("""<span style="font-size: 18px;"> Based on the following findings for the underlying case, under Bank Secrecy Act, it is recommended to file this case as a suspicious activity:
+
+                  (1) Transaction amount is above the $5,000 value threshold
+
+                  (2) There is an indication of suspicion with involvement of multiple individuals, mismatch of customer details on merchant invoice and identification of a potential suspect.</span>""", unsafe_allow_html=True)
+
         if st.button("Submit"):
             if selected_rad in ("str_opt1"):
                 st.write("") 
