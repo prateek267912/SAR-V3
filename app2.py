@@ -46,7 +46,7 @@ from huggingface_hub import login
 #from st_custom_components import st_audiorec, text_to_docs
 #import sounddevice as sd
 #from scipy.io.wavfile import write
-
+# New file
 # Setting Env
 if st.secrets["OPENAI_API_KEY"] is not None:
     os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
